@@ -5,29 +5,18 @@ require 'sulfuras_updater'
 
 class ItemUpdater
   def self.update(item)
-    update_sell_in item
-    update_quality item
-  end
+    updater = if backstage? item
+                BackstageUpdater.new(item)
+              elsif aged_brie? item
+                AgedBrieUpdater.new(item)
+              elsif sulfuras? item
+                SulfurasUpdater.new(item)
+              else
+                BaseUpdater.new(item)
+              end
 
-  def self.update_quality(item)
-    if backstage? item
-      updater = BackstageUpdater.new(item)
-      updater.update_quality
-    elsif aged_brie? item
-      updater = AgedBrieUpdater.new(item)
-      updater.update_quality
-    elsif sulfuras? item
-      updater = SulfurasUpdater.new(item)
-      updater.update_quality
-    else
-      updater = BaseUpdater.new(item)
-      updater.update_quality
-    end
-  end
-
-  def self.update_sell_in(item)
-    return if sulfuras?(item)
-    item.sell_in -= 1
+    updater.update_sell_in
+    updater.update_quality
   end
 
   def self.aged_brie?(item)

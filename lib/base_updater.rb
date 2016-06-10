@@ -8,6 +8,9 @@ class BaseUpdater
     decrease_quality_by_one if @item.sell_in < 0
   end
 
+  def update_sell_in
+    @item.sell_in -= 1
+  end
 
   protected
 
