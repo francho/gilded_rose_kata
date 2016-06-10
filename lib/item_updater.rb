@@ -1,5 +1,6 @@
 require 'base_updater'
 require 'aged_brie_updater'
+require 'backstage_updater'
 
 class ItemUpdater
   def self.update(item)
@@ -9,10 +10,8 @@ class ItemUpdater
 
   def self.update_quality(item)
     if backstage? item
-      increase_quality item
-      increase_quality item if item.sell_in < 10
-      increase_quality item if item.sell_in < 5
-      item.quality = 0 if item.sell_in < 0
+      updater = BackstageUpdater.new(item)
+      updater.update_quality
     elsif aged_brie? item
       updater = AgedBrieUpdater.new(item)
       updater.update_quality
