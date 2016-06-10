@@ -20,13 +20,12 @@ class ItemUpdater
     end
     if item.sell_in < 0
       unless aged_brie? item
-        unless backstage?(item)
-          unless sulfuras?(item)
-            decrease_quality item
-          end
-        else
-          item.quality = item.quality - item.quality
+        item.quality = 0 if backstage?(item)
+
+        unless sulfuras?(item)
+          decrease_quality item
         end
+
       else
         increase_quality item
       end
