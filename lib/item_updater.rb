@@ -1,10 +1,8 @@
 class ItemUpdater
   def self.update(item)
     unless aged_brie?(item) || backstage?(item)
-      if item.quality > 0
-        unless sulfuras?(item)
-          item.quality -= 1
-        end
+      unless sulfuras?(item)
+        decrease_quality item
       end
     else
       if item.quality < 50
@@ -27,13 +25,11 @@ class ItemUpdater
       item.sell_in -= 1
     end
     if item.sell_in < 0
-      unless aged_brie?item
+      unless aged_brie? item
         unless backstage?(item)
-          if item.quality > 0
             unless sulfuras?(item)
-              item.quality -= 1
+              decrease_quality item
             end
-          end
         else
           item.quality = item.quality - item.quality
         end
@@ -56,5 +52,10 @@ class ItemUpdater
 
   def self.sulfuras?(item)
     item.name.eql? 'Sulfuras, Hand of Ragnaros'
+  end
+
+  def self.decrease_quality(item)
+    return unless item.quality > 0
+    item.quality -= 1
   end
 end
