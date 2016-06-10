@@ -2,7 +2,7 @@ class ItemUpdater
   def self.update(item)
     if !aged_brie?(item) && !backstage?(item)
       if item.quality > 0
-        if item.name != 'Sulfuras, Hand of Ragnaros'
+        unless sulfuras?(item)
           item.quality -= 1
         end
       end
@@ -23,14 +23,14 @@ class ItemUpdater
         end
       end
     end
-    if item.name != 'Sulfuras, Hand of Ragnaros'
+    unless sulfuras?(item)
       item.sell_in -= 1
     end
     if item.sell_in < 0
       unless aged_brie?item
         unless backstage?(item)
           if item.quality > 0
-            if item.name != 'Sulfuras, Hand of Ragnaros'
+            unless sulfuras?(item)
               item.quality -= 1
             end
           end
@@ -52,5 +52,9 @@ class ItemUpdater
 
   def self.backstage?(item)
     item.name.eql? 'Backstage passes to a TAFKAL80ETC concert'
+  end
+
+  def self.sulfuras?(item)
+    item.name.eql? 'Sulfuras, Hand of Ragnaros'
   end
 end
