@@ -8,6 +8,14 @@ class BaseUpdater
     update_quality
   end
 
+  def self.for(item)
+    new item if is_updater_for item
+  end
+
+  def self.is_updater_for(item)
+    true
+  end
+
   protected
 
   def update_quality
