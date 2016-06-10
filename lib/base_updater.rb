@@ -3,6 +3,13 @@ class BaseUpdater
     @item = item
   end
 
+  def update
+    update_sell_in
+    update_quality
+  end
+
+  protected
+
   def update_quality
     decrease_quality_by_one
     decrease_quality_by_one if @item.sell_in < 0
@@ -11,8 +18,6 @@ class BaseUpdater
   def update_sell_in
     @item.sell_in -= 1
   end
-
-  protected
 
   def decrease_quality_by_one
     return unless @item.quality > 0
