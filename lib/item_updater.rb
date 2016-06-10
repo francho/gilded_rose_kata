@@ -42,13 +42,4 @@ class ItemUpdater
     item.name.eql? 'Sulfuras, Hand of Ragnaros'
   end
 
-  def self.decrease_quality(item)
-    return unless item.quality > 0
-    item.quality -= 1
-  end
-
-  def self.increase_quality(item)
-    return unless item.quality < 50
-    item.quality += 1
-  end
 end
