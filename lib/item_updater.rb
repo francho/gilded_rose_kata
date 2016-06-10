@@ -4,21 +4,15 @@ require 'backstage_updater'
 require 'sulfuras_updater'
 
 class ItemUpdater
-  def self.update(item)
-    updater = if backstage? item
-                BackstageUpdater.new(item)
-              elsif aged_brie? item
-                AgedBrieUpdater.new(item)
-              elsif sulfuras? item
-                SulfurasUpdater.new(item)
-              else
-                BaseUpdater.new(item)
-              end
+  def self.for(item)
+    return BackstageUpdater.new(item) if backstage? item
+    return AgedBrieUpdater.new(item) if aged_brie? item
+    return SulfurasUpdater.new(item) if sulfuras? item
 
-    updater.update_sell_in
-    updater.update_quality
+    return BaseUpdater.new(item)
   end
 
+  private
   def self.aged_brie?(item)
     item.name.eql? 'Aged Brie'
   end
@@ -30,5 +24,4 @@ class ItemUpdater
   def self.sulfuras?(item)
     item.name.eql? 'Sulfuras, Hand of Ragnaros'
   end
-
 end

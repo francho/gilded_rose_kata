@@ -2,7 +2,9 @@ require 'lib/item_updater'
 
 def update_quality(items)
   items.each do |item|
-    ItemUpdater.update item
+    updater = ItemUpdater.for item
+    updater.update_sell_in
+    updater.update_quality
   end
 end
 
