@@ -10,20 +10,14 @@ class ItemUpdater
       increase_quality item if item.sell_in < 10
       increase_quality item if item.sell_in < 5
       item.quality = 0 if item.sell_in < 0
+    elsif aged_brie? item
+      increase_quality item
+      increase_quality item if item.sell_in < 0
     else
-
-      unless aged_brie?(item)
-        decrease_quality item unless sulfuras?(item)
-      else
-        increase_quality item
-      end
+      decrease_quality item unless sulfuras?(item)
 
       if item.sell_in < 0
-        unless aged_brie? item
-          decrease_quality item unless sulfuras?(item)
-        else
-          increase_quality item
-        end
+        decrease_quality item unless sulfuras?(item)
       end
 
     end
