@@ -16,4 +16,10 @@ class BaseUpdater
     @item.quality -= 1
   end
 
+
+  def increase_quality_by_one
+    return unless @item.quality < 50
+    @item.quality += 1
+  end
+
 end

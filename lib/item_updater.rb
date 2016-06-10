@@ -1,4 +1,5 @@
 require 'base_updater'
+require 'aged_brie_updater'
 
 class ItemUpdater
   def self.update(item)
@@ -13,8 +14,8 @@ class ItemUpdater
       increase_quality item if item.sell_in < 5
       item.quality = 0 if item.sell_in < 0
     elsif aged_brie? item
-      increase_quality item
-      increase_quality item if item.sell_in < 0
+      updater = AgedBrieUpdater.new(item)
+      updater.update_quality
     elsif sulfuras? item
     else
       updater = BaseUpdater.new(item)
