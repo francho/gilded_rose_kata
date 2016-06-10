@@ -1,6 +1,6 @@
 class ItemUpdater
   def self.update(item)
-    if item.name != 'Aged Brie' && item.name != 'Backstage passes to a TAFKAL80ETC concert'
+    if !aged_brie?(item) && item.name != 'Backstage passes to a TAFKAL80ETC concert'
       if item.quality > 0
         if item.name != 'Sulfuras, Hand of Ragnaros'
           item.quality -= 1
@@ -27,7 +27,7 @@ class ItemUpdater
       item.sell_in -= 1
     end
     if item.sell_in < 0
-      if item.name != 'Aged Brie'
+      unless aged_brie?item
         if item.name != 'Backstage passes to a TAFKAL80ETC concert'
           if item.quality > 0
             if item.name != 'Sulfuras, Hand of Ragnaros'
@@ -44,5 +44,9 @@ class ItemUpdater
       end
     end
 
+  end
+
+  def self.aged_brie?(item)
+    item.name.eql? 'Aged Brie'
   end
 end
