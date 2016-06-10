@@ -1,6 +1,6 @@
 class ItemUpdater
   def self.update(item)
-    if !aged_brie?(item) && !backstage?(item)
+    unless aged_brie?(item) || backstage?(item)
       if item.quality > 0
         unless sulfuras?(item)
           item.quality -= 1
