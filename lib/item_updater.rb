@@ -13,13 +13,10 @@ class ItemUpdater
     elsif aged_brie? item
       increase_quality item
       increase_quality item if item.sell_in < 0
+    elsif sulfuras? item
     else
-      decrease_quality item unless sulfuras?(item)
-
-      if item.sell_in < 0
-        decrease_quality item unless sulfuras?(item)
-      end
-
+      decrease_quality item
+      decrease_quality item if item.sell_in < 0
     end
   end
 
