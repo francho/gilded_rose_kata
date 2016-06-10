@@ -1,3 +1,5 @@
+require 'base_updater'
+
 class ItemUpdater
   def self.update(item)
     update_sell_in item
@@ -15,8 +17,8 @@ class ItemUpdater
       increase_quality item if item.sell_in < 0
     elsif sulfuras? item
     else
-      decrease_quality item
-      decrease_quality item if item.sell_in < 0
+      updater = BaseUpdater.new(item)
+      updater.update_quality
     end
   end
 
