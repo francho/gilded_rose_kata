@@ -1,7 +1,10 @@
 class ItemUpdater
   def self.update(item)
     update_sell_in item
+    update_quality item
+  end
 
+  def self.update_quality(item)
     unless aged_brie?(item) || backstage?(item)
       decrease_quality item unless sulfuras?(item)
     else
@@ -20,7 +23,6 @@ class ItemUpdater
         increase_quality item
       end
     end
-
   end
 
   def self.update_sell_in(item)
