@@ -5,19 +5,13 @@ class ItemUpdater
         decrease_quality item
       end
     else
-      if item.quality < 50
-        item.quality += 1
-        if backstage?(item)
-          if item.sell_in < 11
-            if item.quality < 50
-              item.quality += 1
-            end
-          end
-          if item.sell_in < 6
-            if item.quality < 50
-              item.quality += 1
-            end
-          end
+      increase_quality item
+      if backstage?(item)
+        if item.sell_in < 11
+          increase_quality item
+        end
+        if item.sell_in < 6
+          increase_quality item
         end
       end
     end
@@ -27,16 +21,14 @@ class ItemUpdater
     if item.sell_in < 0
       unless aged_brie? item
         unless backstage?(item)
-            unless sulfuras?(item)
-              decrease_quality item
-            end
+          unless sulfuras?(item)
+            decrease_quality item
+          end
         else
           item.quality = item.quality - item.quality
         end
       else
-        if item.quality < 50
-          item.quality += 1
-        end
+        increase_quality item
       end
     end
 
@@ -57,5 +49,10 @@ class ItemUpdater
   def self.decrease_quality(item)
     return unless item.quality > 0
     item.quality -= 1
+  end
+
+  def self.increase_quality(item)
+    return unless item.quality < 50
+    item.quality += 1
   end
 end
