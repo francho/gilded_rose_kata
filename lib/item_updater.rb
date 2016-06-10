@@ -1,6 +1,7 @@
 require 'base_updater'
 require 'aged_brie_updater'
 require 'backstage_updater'
+require 'sulfuras_updater'
 
 class ItemUpdater
   def self.update(item)
@@ -16,6 +17,8 @@ class ItemUpdater
       updater = AgedBrieUpdater.new(item)
       updater.update_quality
     elsif sulfuras? item
+      updater = SulfurasUpdater.new(item)
+      updater.update_quality
     else
       updater = BaseUpdater.new(item)
       updater.update_quality
